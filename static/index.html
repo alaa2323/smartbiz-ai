@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBiz AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#6D3FE0;
+  --purple-deep:#4E2AAE;
+  --magenta:#E0499F;
+  --pink:#F2679F;
+  --amber:#F0A020;
+  --green:#1FAE7E;
+  --blue:#3E8EF7;
+  --coral:#F1653D;
+  --bg-page:#F3F0FB;
+  --bg-card:#FFFFFF;
+  --bg-soft:#F6F3FC;
+  --bg-soft-2:#EDE7FA;
+  --line:#E7E1F5;
+  --text-hi:#241A38;
+  --text-mid:#5C5470;
+  --text-lo:#948CA8;
+  --shadow-card:0 24px 50px -24px rgba(93,45,199,.28);
+  --shadow-btn:0 10px 24px -10px rgba(109,63,224,.55);
+  --radius-lg:26px;
+  --radius-md:16px;
+  --radius-sm:10px;
+  --font-display:'Cairo','Inter',sans-serif;
+  --font-body:'Cairo','Inter',sans-serif;
+}
+[data-theme="dark"]{
+  --bg-page:#140E22;
+  --bg-card:#1D1530;
+  --bg-soft:#241A3A;
+  --bg-soft-2:#2B2044;
+  --line:#33274F;
+  --text-hi:#F2EEFC;
+  --text-mid:#B6ADCE;
+  --text-lo:#8479A0;
+  --shadow-card:0 24px 50px -24px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:var(--font-body);
+  background:var(--bg-page);
+  color:var(--text-hi);
+  width:100vw;height:100vh;overflow:hidden;
+}
+button,select,input,textarea{font-family:var(--font-body);}
+.screen{position:absolute;inset:0;width:100%;height:100%;overflow-y:auto;}
+.hidden{display:none !important;}
+
+/* ================= LANDING HERO ================= */
+#landingScreen{
+  background:radial-gradient(120% 140% at 20% 0%, var(--purple) 0%, var(--purple-deep) 45%, var(--magenta) 100%);
+  display:flex;flex-direction:column;align-items:center;
+  padding:56px 24px 60px;position:relative;
+}
+.blob{position:absolute;border-radius:50%;background:rgba(255,255,255,0.14);filter:blur(2px);pointer-events:none;}
+.blob.b1{width:230px;height:230px;top:-60px;left:-60px;}
+.blob.b2{width:170px;height:170px;top:50px;right:6%;background:rgba(255,255,255,0.10);}
+.blob.b3{width:340px;height:340px;bottom:-140px;left:8%;background:rgba(255,255,255,0.08);}
+.blob.b4{width:120px;height:120px;top:20%;left:38%;background:rgba(255,255,255,0.09);}
+
+.hero-topbar{width:100%;max-width:760px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;margin-bottom:34px;}
+.ghost-icon-btn{
+  width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,0.35);
+  background:rgba(255,255,255,0.12);color:#fff;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:15px;
+}
+.lang-pill-select{
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.35);color:#fff;
+  border-radius:12px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;
+}
+.hero-topbar-right{display:flex;gap:8px;align-items:center;}
+
+.hero-content{position:relative;z-index:2;max-width:640px;text-align:center;margin-top:10px;}
+.hero-mark{
+  width:64px;height:64px;border-radius:20px;margin:0 auto 18px;
+  background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.4);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+}
+.hero-content h1{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,5vw,46px);color:#fff;margin-bottom:10px;letter-spacing:-.01em;}
+.hero-tagline{color:rgba(255,255,255,0.92);font-size:17px;font-weight:600;margin-bottom:10px;}
+.hero-sub{color:rgba(255,255,255,0.78);font-size:14.5px;line-height:1.8;margin:0 auto 30px;max-width:520px;}
+
+.cta-col{display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto 40px;}
+.cta-primary{
+  background:#fff;color:var(--purple-deep);border:none;border-radius:18px;
+  padding:16px 20px;font-weight:800;font-size:15.5px;cursor:pointer;
+  box-shadow:0 18px 34px -14px rgba(20,6,50,.45);
+}
+.cta-secondary{
+  background:rgba(255,255,255,0.14);color:#fff;border:1px solid rgba(255,255,255,0.4);
+  border-radius:18px;padding:14px 20px;font-weight:700;font-size:14.5px;cursor:pointer;
+}
+.demo-note{color:rgba(255,255,255,0.7);font-size:12px;margin-top:-4px;}
+
+.tool-grid{
+  position:relative;z-index:2;width:100%;max-width:640px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.tool-card{
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);
+  border-radius:20px;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  cursor:pointer;color:#fff;text-align:center;transition:.15s;
+}
+.tool-card:hover{background:rgba(255,255,255,0.22);transform:translateY(-2px);}
+.tool-card .ic{font-size:24px;}
+.tool-card .lb{font-size:12.5px;font-weight:700;}
+
+@media (max-width:620px){
+  .tool-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ================= CHAT SCREEN ================= */
+#chatScreen{
+  display:flex;flex-direction:column;
+  background:
+    linear-gradient(180deg, rgba(8,6,22,0.62), rgba(8,6,22,0.8)),
+    url('assets/chat-bg.jpg') center/cover no-repeat fixed;
+}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 22px;flex:none;
+}
+.topbar-group{display:flex;align-items:center;gap:8px;}
+.icon-btn{
+  width:38px;height:38px;border-radius:12px;border:1px solid var(--line);
+  background:var(--bg-card);color:var(--text-mid);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:15px;
+}
+.icon-btn:hover{color:var(--text-hi);border-color:var(--purple);}
+.icon-btn.danger{color:var(--coral);border-color:rgba(241,101,61,0.4);background:rgba(241,101,61,0.08);}
+.lang-select{
+  background:var(--bg-card);border:1px solid var(--line);color:var(--text-hi);
+  border-radius:12px;padding:8px 12px;font-size:12.5px;font-weight:700;cursor:pointer;
+}
+.demo-pill{
+  display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;
+  background:rgba(240,160,32,0.14);border:1px solid rgba(240,160,32,0.4);
+  color:#B5760C;font-size:12.5px;font-weight:700;
+}
+[data-theme="dark"] .demo-pill{color:#F0B85D;}
+.brand-mini{display:flex;align-items:center;gap:8px;}
+.brand-mini-name{font-family:var(--font-display);font-weight:800;font-size:16.5px;background:linear-gradient(135deg,var(--purple),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.brand-mini-mark{
+  width:34px;height:34px;border-radius:11px;background:linear-gradient(155deg,var(--purple),var(--magenta));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex:none;
+}
+#chatScreen .icon-btn:not(.danger){background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);color:#fff;backdrop-filter:blur(6px);}
+#chatScreen .icon-btn:not(.danger):hover{border-color:rgba(255,255,255,0.6);color:#fff;}
+#chatScreen .icon-btn.danger{background:rgba(241,101,61,0.28);border-color:rgba(241,101,61,0.55);color:#FFD9C9;}
+#chatScreen .lang-select{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.3);color:#fff;backdrop-filter:blur(6px);}
+#chatScreen .lang-select option{color:#111;}
+#chatScreen .demo-pill{background:rgba(240,160,32,0.22);border-color:rgba(240,160,32,0.55);color:#FFD98A;}
+
+.chat-wrap{flex:1;display:flex;justify-content:center;min-height:0;padding:0 20px 20px;}
+.chat-card{
+  width:100%;max-width:760px;background:transparent;border-radius:0;
+  box-shadow:none;display:flex;flex-direction:column;min-height:0;border:none;
+}
+.chat-card-header{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 4px 20px;flex:none;
+}
+.chat-card-header-left{display:flex;align-items:center;gap:12px;}
+.assistant-avatar{
+  width:46px;height:46px;border-radius:50%;flex:none;
+  background:linear-gradient(155deg,var(--purple),var(--magenta));
+  display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;position:relative;
+  box-shadow:0 10px 24px -8px rgba(0,0,0,.45);
+}
+.online-dot{position:absolute;bottom:1px;inset-inline-end:1px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid #fff;}
+.assistant-name{font-weight:800;font-size:15.5px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5);}
+.online-label{font-size:11.5px;color:#7CF2C4;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.chat-card-header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.mini-pill{
+  padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:5px;
+  box-shadow:0 8px 20px -10px rgba(0,0,0,.4);
+}
+.mini-pill.count{background:rgba(255,255,255,0.92);color:#B5760C;}
+.mini-pill.tool{background:rgba(255,255,255,0.92);color:var(--purple);}
+.domain-mini-select{
+  background:rgba(255,255,255,0.92);border:none;color:var(--text-mid);
+  border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;
+  box-shadow:0 8px 20px -10px rgba(0,0,0,.4);
+}
+
+.messages{flex:1;overflow-y:auto;padding:6px 4px 22px;display:flex;flex-direction:column;gap:14px;min-height:0;}
+.msg-row{display:flex;flex-direction:column;max-width:80%;}
+.msg-row.user{align-self:flex-end;align-items:flex-end;}
+.msg-row.assistant{align-self:flex-start;align-items:flex-start;}
+.bubble{padding:13px 17px;border-radius:20px;font-size:14.5px;line-height:1.8;white-space:pre-wrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);}
+.msg-row.assistant .bubble{background:rgba(255,255,255,0.95);color:#241A38;border-end-start-radius:6px;}
+.msg-row.user .bubble{background:linear-gradient(135deg,var(--purple),var(--magenta));color:#fff;border-end-end-radius:6px;}
+.msg-time{font-size:11px;color:rgba(255,255,255,0.75);text-shadow:0 2px 6px rgba(0,0,0,.5);margin-top:5px;padding:0 4px;}
+.msg-actions{display:flex;gap:8px;margin-top:8px;}
+.msg-action-btn{
+  border:none;background:rgba(255,255,255,0.92);color:var(--text-mid);
+  border-radius:12px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:700;
+  box-shadow:0 8px 18px -10px rgba(0,0,0,.4);
+}
+.msg-action-btn:hover{color:var(--purple);}
+.typing-bubble{background:rgba(255,255,255,0.95);border-radius:20px;border-end-start-radius:6px;padding:15px 18px;display:flex;gap:5px;align-self:flex-start;box-shadow:0 14px 30px -12px rgba(0,0,0,.45);}
+.typing-bubble span{width:6px;height:6px;border-radius:50%;background:#9089A6;animation:blink 1.2s infinite;}
+.typing-bubble span:nth-child(2){animation-delay:.2s;}
+.typing-bubble span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.25;}40%{opacity:1;}}
+
+.suggest-row{display:flex;gap:10px;flex-wrap:wrap;padding:2px 4px 4px;}
+.suggest-pill{
+  border:none;border-radius:20px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:6px;box-shadow:0 10px 22px -10px rgba(0,0,0,.4);
+}
+.suggest-pill:hover{filter:brightness(0.97);}
+
+.composer{padding:16px 4px 4px;flex:none;}
+.composer-inner{
+  display:flex;align-items:flex-end;gap:10px;background:rgba(255,255,255,0.95);
+  border:none;border-radius:22px;padding:8px 8px 8px 16px;box-shadow:0 16px 34px -14px rgba(0,0,0,.5);
+}
+[dir="rtl"] .composer-inner{padding:8px 16px 8px 8px;}
+.composer-inner textarea{
+  flex:1;background:none;border:none;outline:none;resize:none;
+  color:#241A38;font-size:14.5px;line-height:1.6;max-height:150px;padding:10px 0;
+}
+.composer-inner textarea::placeholder{color:#9089A6;}
+.send-btn{
+  width:42px;height:42px;border-radius:50%;border:none;flex:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--purple),var(--magenta));color:#fff;font-size:16px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-btn);
+}
+.send-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;}
+.composer-hint{text-align:center;font-size:11.5px;color:rgba(255,255,255,0.7);text-shadow:0 2px 6px rgba(0,0,0,.5);margin-top:10px;}
+
+/* ================= DRAWER ================= */
+.drawer-overlay{position:fixed;inset:0;background:rgba(20,10,40,0.45);z-index:60;display:flex;}
+.drawer{
+  width:300px;max-width:82vw;height:100%;background:var(--bg-card);
+  padding:22px 18px;display:flex;flex-direction:column;gap:18px;overflow-y:auto;
+  margin-inline-start:auto;
+}
+[dir="rtl"] .drawer{margin-inline-start:0;margin-inline-end:auto;}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;}
+.drawer-title{font-family:var(--font-display);font-weight:800;font-size:17px;}
+.section-label{font-size:12px;color:var(--text-lo);font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.drawer-tool-list{display:flex;flex-direction:column;gap:6px;}
+.drawer-tool-btn{
+  display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;
+  background:transparent;border:1px solid transparent;color:var(--text-mid);cursor:pointer;
+  font-size:14px;font-weight:700;text-align:start;
+}
+.drawer-tool-btn:hover{background:var(--bg-soft);color:var(--text-hi);}
+.drawer-tool-btn.active{background:var(--bg-soft-2);border-color:var(--line);color:var(--purple);}
+.tool-icon-chip{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;}
+.history-section{flex:1;display:flex;flex-direction:column;min-height:0;gap:8px;}
+.history-list{overflow-y:auto;display:flex;flex-direction:column;gap:4px;}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:12px;cursor:pointer;color:var(--text-mid);font-size:13px;}
+.history-item:hover{background:var(--bg-soft);color:var(--text-hi);}
+.history-count{font-size:11px;background:var(--bg-soft-2);color:var(--purple);border-radius:20px;padding:1px 8px;font-weight:700;}
+.empty-hint{font-size:12.5px;color:var(--text-lo);padding:6px 12px;}
+.account-box{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px;border-radius:16px;background:var(--bg-soft);}
+.account-name{font-size:13.5px;font-weight:800;}
+.account-sub{font-size:11px;color:var(--text-lo);}
+.mini-link-btn{border:none;background:none;color:var(--purple);cursor:pointer;font-size:12px;font-weight:700;}
+
+/* ================= MODALS ================= */
+.overlay{position:fixed;inset:0;background:rgba(20,10,40,0.5);z-index:80;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--bg-card);border-radius:24px;width:100%;max-width:420px;padding:26px;max-height:88vh;overflow-y:auto;}
+.modal.wide{max-width:640px;}
+.modal h2{font-family:var(--font-display);font-size:19px;font-weight:800;margin-bottom:6px;}
+.modal .sub{color:var(--text-lo);font-size:13px;margin-bottom:18px;}
+.field{margin-bottom:13px;display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:12.5px;color:var(--text-mid);font-weight:700;}
+.field input,.field textarea{
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;
+  padding:10px 12px;color:var(--text-hi);font-size:14px;outline:none;
+}
+.field input:focus,.field textarea:focus{border-color:var(--purple);}
+.field textarea{resize:vertical;min-height:110px;}
+.modal-actions{display:flex;gap:10px;margin-top:18px;}
+.btn{flex:1;padding:12px;border-radius:14px;border:1px solid var(--line);cursor:pointer;font-weight:800;font-size:14px;background:var(--bg-soft);color:var(--text-hi);}
+.btn.primary{background:linear-gradient(135deg,var(--purple),var(--magenta));color:#fff;border-color:transparent;}
+.switch-line{text-align:center;font-size:13px;color:var(--text-lo);margin-top:14px;}
+.switch-line a{color:var(--purple);cursor:pointer;font-weight:700;}
+.alert-box{background:rgba(241,101,61,0.1);border:1px solid rgba(241,101,61,0.35);color:#C24A2A;border-radius:12px;padding:9px 12px;font-size:12.5px;margin-bottom:12px;}
+[data-theme="dark"] .alert-box{color:#F4977B;}
+.alert-box.ok{background:rgba(31,174,126,0.12);border-color:rgba(31,174,126,0.4);color:#188F69;}
+[data-theme="dark"] .alert-box.ok{color:#5FDCB2;}
+.history-day-block{border-bottom:1px solid var(--line);padding:14px 0;}
+.history-day-block:last-child{border-bottom:none;}
+.history-day-block h3{font-size:13.5px;margin-bottom:6px;color:var(--purple);font-weight:800;}
+.history-msg{font-size:13px;color:var(--text-mid);margin-bottom:4px;line-height:1.6;}
+.history-msg b{color:var(--text-hi);}
+
+@media (max-width:640px){
+  .msg-row{max-width:92%;}
+  .chat-card-header{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<!-- ================= LANDING ================= -->
+<section class="screen" id="landingScreen">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+
+  <div class="hero-topbar">
+    <button class="ghost-icon-btn" id="heroTheme" aria-label="theme">🌙</button>
+    <div class="hero-topbar-right">
+      <select class="lang-pill-select" id="heroLangSelect">
+        <option value="ar">AR</option>
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-mark">⚡</div>
+    <h1>SmartBiz AI</h1>
+    <div class="hero-tagline" id="t-hero-tagline">مساعدك الذكي لإدارة أعمالك</div>
+    <div class="hero-sub" id="t-hero-sub">اكتب إيميلات، أنشئ عروض أسعار، لخّص اجتماعات - كلها بالذكاء الاصطناعي</div>
+
+    <div class="cta-col">
+      <button class="cta-primary" id="ctaTryFree">🚀 <span id="t-cta-try"></span></button>
+      <button class="cta-secondary" id="ctaLogin">🔒 <span id="t-cta-login"></span></button>
+      <div class="demo-note" id="t-demo-note"></div>
+    </div>
+  </div>
+
+  <div class="tool-grid" id="heroToolGrid"></div>
+</section>
+
+<!-- ================= CHAT ================= -->
+<section class="screen hidden" id="chatScreen">
+  <div class="topbar">
+    <div class="topbar-group">
+      <button class="icon-btn danger" id="backHomeBtn" aria-label="back">↩</button>
+      <button class="icon-btn" id="themeToggle" aria-label="theme">🌙</button>
+      <select class="lang-select" id="langSelect">
+        <option value="ar">AR</option>
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+      </select>
+      <button class="icon-btn" id="menuBtn" aria-label="menu">☰</button>
+    </div>
+    <div class="topbar-group">
+      <div class="demo-pill hidden" id="demoPill">⚡ <span id="demoRemainingText">5</span>/5</div>
+      <div class="brand-mini">
+        <span class="brand-mini-name">SmartBiz AI</span>
+        <div class="brand-mini-mark">⚡</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-card">
+      <div class="chat-card-header">
+        <div class="chat-card-header-left">
+          <div class="assistant-avatar" id="assistantAvatar">💡<span class="online-dot"></span></div>
+          <div>
+            <div class="assistant-name" id="assistantName">المساعد الذكي</div>
+            <div class="online-label" id="t-online">متصل الآن</div>
+          </div>
+        </div>
+        <div class="chat-card-header-right">
+          <select class="domain-mini-select" id="domainSelect"></select>
+          <div class="mini-pill tool" id="activeToolPill"></div>
+        </div>
+      </div>
+
+      <div class="messages" id="messages"></div>
+
+      <div class="composer">
+        <div class="composer-inner">
+          <textarea id="messageInput" rows="1"></textarea>
+          <button class="send-btn" id="sendBtn">➤</button>
+        </div>
+        <div class="composer-hint" id="t-hint">اضغط Enter للإرسال، Shift+Enter سطر جديد</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DRAWER ================= -->
+<div class="drawer-overlay hidden" id="drawerOverlay">
+  <div class="drawer">
+    <div class="drawer-head">
+      <div class="drawer-title">SmartBiz AI</div>
+      <button class="icon-btn" id="drawerClose">✕</button>
+    </div>
+
+    <div>
+      <div class="section-label" id="t-tools-label">الأدوات</div>
+      <div class="drawer-tool-list" id="drawerToolList" style="margin-top:8px;"></div>
+    </div>
+
+    <div class="history-section">
+      <div class="section-label" id="t-history-label">السجل حسب التاريخ</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+
+    <div class="account-box" id="accountBox">
+      <div>
+        <div class="account-name" id="accountName">وضع تجريبي</div>
+        <div class="account-sub" id="accountSub">5 مهام مجانية</div>
+      </div>
+      <button class="mini-link-btn" id="accountAction">دخول</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= AUTH MODAL ================= -->
+<div class="overlay hidden" id="authOverlay">
+  <div class="modal">
+    <h2 id="authTitle">تسجيل الدخول</h2>
+    <div class="sub" id="authSub">ادخل لحفظ محادثاتك وسجلّك الكامل</div>
+    <div id="authAlert"></div>
+    <div class="field hidden" id="regUsernameField">
+      <label>اسم المستخدم</label>
+      <input type="text" id="regUsername">
+    </div>
+    <div class="field hidden" id="regEmailField">
+      <label>البريد الإلكتروني</label>
+      <input type="email" id="regEmail">
+    </div>
+    <div class="field">
+      <label id="loginUserLabel">اسم المستخدم</label>
+      <input type="text" id="loginUsername">
+    </div>
+    <div class="field">
+      <label>كلمة المرور</label>
+      <input type="password" id="loginPassword">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" id="authCancel">إلغاء</button>
+      <button class="btn primary" id="authSubmit">دخول</button>
+    </div>
+    <div class="switch-line" id="authSwitchLine">ليس لديك حساب؟ <a id="authSwitchLink">أنشئ حساباً</a></div>
+  </div>
+</div>
+
+<!-- ================= EMAIL MODAL ================= -->
+<div class="overlay hidden" id="emailOverlay">
+  <div class="modal">
+    <h2 id="t-email-title">إرسال البريد الإلكتروني</h2>
+    <div class="sub" id="t-email-sub">سيُفتح تطبيق بريدك الافتراضي مع تعبئة الحقول تلقائياً</div>
+    <div id="emailAlert"></div>
+    <div class="field">
+      <label id="t-email-to">إلى</label>
+      <input type="email" id="emailTo" placeholder="client@example.com">
+    </div>
+    <div class="field">
+      <label id="t-email-subject">الموضوع</label>
+      <input type="text" id="emailSubject">
+    </div>
+    <div class="field">
+      <label id="t-email-body">النص</label>
+      <textarea id="emailBody"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" id="emailCancel">إلغاء</button>
+      <button class="btn primary" id="emailSubmit">إرسال</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HISTORY DAY MODAL ================= -->
+<div class="overlay hidden" id="historyOverlay">
+  <div class="modal wide">
+    <h2 id="historyDayTitle">سجل اليوم</h2>
+    <div class="sub" id="t-history-sub">كل الأعمال المنجزة في هذا التاريخ</div>
+    <div id="historyDayContent"></div>
+    <div class="modal-actions">
+      <button class="btn" id="historyClose">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = '';
+const TOOLS = [
+  {key:'email', icon:'✉️', color:'purple'},
+  {key:'quote', icon:'🧾', color:'green'},
+  {key:'meeting', icon:'🗓️', color:'amber'},
+  {key:'social', icon:'📣', color:'magenta'},
+  {key:'tasks', icon:'✅', color:'blue'}
+];
+const COLOR_MAP = {
+  purple:{bg:'rgba(228,219,251,0.95)', fg:'#5B34B8'},
+  green:{bg:'rgba(202,241,224,0.95)', fg:'#127A57'},
+  amber:{bg:'rgba(250,225,180,0.95)', fg:'#9C6A0A'},
+  magenta:{bg:'rgba(250,214,232,0.95)', fg:'#B23370'},
+  blue:{bg:'rgba(212,229,252,0.95)', fg:'#2A66C4'}
+};
+
+const I18N = {
+  ar:{dir:'rtl', toolsLabel:'الأدوات', historyLabel:'السجل حسب التاريخ',
+    heroTagline:'مساعدك الذكي لإدارة أعمالك', heroSub:'اكتب إيميلات، أنشئ عروض أسعار، لخّص اجتماعات - كلها بالذكاء الاصطناعي',
+    ctaTry:'جرب الآن مجاناً (5 طلبات)', ctaLogin:'تسجيل الدخول / إنشاء حساب', demoNote:'بدون بطاقة بنكية، بدون التزام',
+    demoName:'وضع تجريبي', login:'دخول', logout:'خروج', demoSub:t=>`${t} مهام مجانية متبقية`,
+    inputPlaceholder:'اكتب طلبك هنا...', emptyHistory:'لا يوجد سجل بعد', cancel:'إلغاء',
+    online:'متصل الآن', assistantName:'المساعد الذكي', hint:'اضغط Enter للإرسال، Shift+Enter سطر جديد',
+    toolTitles:{email:'كتابة إيميل', quote:'عرض سعر', meeting:'تلخيص اجتماع', social:'منشور تواصل اجتماعي', tasks:'إدارة المهام'},
+    toolDescs:{email:'اكتب رسائل احترافية بثوانٍ', quote:'أنشئ عروض أسعار مفصلة', meeting:'لخّص اجتماعاتك بسرعة', social:'منشورات جذابة لمنصاتك', tasks:'رتّب مهامك بذكاء'},
+    domains:{general:'عام', restaurant:'مطعم', retail:'تجارة تجزئة', consulting:'استشارات', tech:'تقنية', freelance:'عمل حر', health:'صحة وعافية', construction:'بناء ومقاولات', education:'تعليم'},
+    loginTitle:'تسجيل الدخول', loginSub:'ادخل لحفظ محادثاتك وسجلّك الكامل', regTitle:'إنشاء حساب', regSub:'انضم لحفظ كل أعمالك وتاريخك',
+    username:'اسم المستخدم', email:'البريد الإلكتروني', password:'كلمة المرور',
+    switchToReg:'ليس لديك حساب؟', switchToRegLink:'أنشئ حساباً', switchToLogin:'لديك حساب بالفعل؟', switchToLoginLink:'سجّل الدخول',
+    sendEmailAction:'إرسال كبريد', copyAction:'نسخ', emailModalTitle:'إرسال البريد الإلكتروني', emailModalSub:'سيُفتح تطبيق بريدك الافتراضي مع تعبئة الحقول تلقائياً',
+    to:'إلى', subject:'الموضوع', body:'النص', historyDaySub:'كل الأعمال المنجزة في هذا التاريخ', close:'إغلاق',
+    demoLimitTitle:'انتهت المهام المجانية', copied:'تم النسخ', sent:'تم فتح تطبيق البريد لديك، أكمل الإرسال من هناك',
+    welcomeMsg:'مرحباً! 👋 أنا مساعدك الذكي لإدارة أعمالك. اختر أداة من القائمة الجانبية أو اكتب طلبك مباشرة!',
+    suggestions:{email:'إيميل احترافي', quote:'عرض سعر', meeting:'تلخيص اجتماع', social:'منشور تواصل', tasks:'قائمة مهام'},
+    suggestionPrompts:{email:'اكتب بريداً لعميل متأخر عن الدفع', quote:'أنشئ عرض سعر لخدمة تصميم', meeting:'لخّص اجتماع فريق المبيعات', social:'اكتب منشوراً لإطلاق منتج جديد', tasks:'رتّب لي مهام إطلاق منتج جديد'}
+  },
+  fr:{dir:'ltr', toolsLabel:'Outils', historyLabel:'Historique par date',
+    heroTagline:'Votre assistant IA pour les affaires', heroSub:"Rédigez des e-mails, créez des devis, résumez des réunions - tout avec l'IA",
+    ctaTry:'Essayer gratuitement (5 tâches)', ctaLogin:'Connexion / Créer un compte', demoNote:'Sans carte bancaire, sans engagement',
+    demoName:'Mode démo', login:'Connexion', logout:'Déconnexion', demoSub:t=>`${t} tâches gratuites restantes`,
+    inputPlaceholder:'Écrivez votre message ici...', emptyHistory:'Aucun historique pour le moment', cancel:'Annuler',
+    online:'En ligne', assistantName:'Assistant intelligent', hint:'Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne',
+    toolTitles:{email:'E-mail', quote:'Devis', meeting:'Résumé de réunion', social:'Post réseaux sociaux', tasks:'Gestion des tâches'},
+    toolDescs:{email:'Rédigez des e-mails pros en secondes', quote:'Créez des devis détaillés', meeting:'Résumez vos réunions rapidement', social:'Des posts engageants pour vos réseaux', tasks:'Organisez vos tâches intelligemment'},
+    domains:{general:'Général', restaurant:'Restaurant', retail:'Commerce de détail', consulting:'Conseil', tech:'Tech', freelance:'Freelance', health:'Santé', construction:'Construction', education:'Éducation'},
+    loginTitle:'Connexion', loginSub:'Connectez-vous pour sauvegarder vos échanges', regTitle:'Créer un compte', regSub:'Rejoignez-nous pour garder tout votre historique',
+    username:"Nom d'utilisateur", email:'E-mail', password:'Mot de passe',
+    switchToReg:"Pas de compte ?", switchToRegLink:'Créer un compte', switchToLogin:'Déjà un compte ?', switchToLoginLink:'Se connecter',
+    sendEmailAction:'Envoyer par e-mail', copyAction:'Copier', emailModalTitle:"Envoyer l'e-mail", emailModalSub:'Ouvre votre application e-mail par défaut avec les champs déjà remplis',
+    to:'À', subject:'Objet', body:'Message', historyDaySub:'Tous les travaux réalisés à cette date', close:'Fermer',
+    demoLimitTitle:'Tâches gratuites épuisées', copied:'Copié', sent:"Votre application e-mail est ouverte, terminez l'envoi depuis là-bas",
+    welcomeMsg:"Bonjour ! 👋 Je suis votre assistant IA pour la gestion de votre entreprise. Choisissez un outil ou tapez votre demande !",
+    suggestions:{email:'E-mail pro', quote:'Devis', meeting:'Résumé réunion', social:'Post réseau social', tasks:'Liste de tâches'},
+    suggestionPrompts:{email:'Rédiger un e-mail de relance de paiement', quote:'Créer un devis pour un service de design', meeting:"Résumer une réunion d'équipe commerciale", social:'Rédiger un post de lancement produit', tasks:'Organiser les tâches de lancement produit'}
+  },
+  en:{dir:'ltr', toolsLabel:'Tools', historyLabel:'History by date',
+    heroTagline:'Your AI assistant for business', heroSub:'Write emails, create quotes, summarize meetings - all with AI',
+    ctaTry:'Try free now (5 tasks)', ctaLogin:'Log in / Create account', demoNote:'No card required, no commitment',
+    demoName:'Demo mode', login:'Log in', logout:'Log out', demoSub:t=>`${t} free tasks left`,
+    inputPlaceholder:'Type your message here...', emptyHistory:'No history yet', cancel:'Cancel',
+    online:'Online now', assistantName:'Smart assistant', hint:'Press Enter to send, Shift+Enter for a new line',
+    toolTitles:{email:'Email', quote:'Quote', meeting:'Meeting summary', social:'Social post', tasks:'Task manager'},
+    toolDescs:{email:'Write professional emails in seconds', quote:'Create detailed business quotes', meeting:'Summarize your meetings fast', social:'Engaging posts for your platforms', tasks:'Organize your tasks smartly'},
+    domains:{general:'General', restaurant:'Restaurant', retail:'Retail', consulting:'Consulting', tech:'Tech', freelance:'Freelance', health:'Health & wellness', construction:'Construction', education:'Education'},
+    loginTitle:'Log in', loginSub:'Log in to save your chats and full history', regTitle:'Create account', regSub:'Join to keep all your work and history',
+    username:'Username', email:'Email', password:'Password',
+    switchToReg:"Don't have an account?", switchToRegLink:'Create one', switchToLogin:'Already have an account?', switchToLoginLink:'Log in',
+    sendEmailAction:'Send as email', copyAction:'Copy', emailModalTitle:'Send email', emailModalSub:'Opens your default email app with the fields already filled in',
+    to:'To', subject:'Subject', body:'Body', historyDaySub:'Everything done on this date', close:'Close',
+    demoLimitTitle:'Free tasks used up', copied:'Copied', sent:'Your email app is open, finish sending from there',
+    welcomeMsg:"Hi! 👋 I'm your AI assistant for running your business. Pick a tool or just type your request!",
+    suggestions:{email:'Pro email', quote:'Quote', meeting:'Meeting recap', social:'Social post', tasks:'Task list'},
+    suggestionPrompts:{email:'Write an email to a late-paying client', quote:'Create a quote for a design service', meeting:'Summarize a sales team meeting', social:'Write a product launch post', tasks:'Organize tasks for a product launch'}
+  }
+};
+
+let state = {
+  lang: localStorage.getItem('sb_lang') || 'ar',
+  theme: localStorage.getItem('sb_theme') || 'light',
+  domain: localStorage.getItem('sb_domain') || 'general',
+  token: localStorage.getItem('sb_token') || null,
+  user: JSON.parse(localStorage.getItem('sb_user') || 'null'),
+  activeTool: 'email',
+  chatId: null,
+  demoTaskId: null,
+  messages: [],
+  authMode: 'login',
+  domains: ['general','restaurant','retail','consulting','tech','freelance','health','construction','education'],
+  hasSentFirstMessage: false
+};
+
+function t(key){ return I18N[state.lang][key]; }
+
+function apiHeaders(json=true){
+  const h = {};
+  if(json) h['Content-Type']='application/json';
+  if(state.token) h['Authorization'] = 'Bearer ' + state.token;
+  return h;
+}
+async function apiFetch(path, opts={}){
+  const res = await fetch(API+path, {...opts, headers:{...apiHeaders(), ...(opts.headers||{})}});
+  let data = {};
+  try{ data = await res.json(); }catch(e){}
+  if(!res.ok) throw {status:res.status, data};
+  return data;
+}
+
+/* ---------- theme / language ---------- */
+function applyTheme(){
+  document.body.setAttribute('data-theme', state.theme);
+  const icon = state.theme==='dark' ? '☀️' : '🌙';
+  document.getElementById('themeToggle').textContent = icon;
+  document.getElementById('heroTheme').textContent = icon;
+}
+function setTheme(next){
+  state.theme = next;
+  localStorage.setItem('sb_theme', state.theme);
+  applyTheme();
+}
+document.getElementById('themeToggle').onclick = ()=>setTheme(state.theme==='dark'?'light':'dark');
+document.getElementById('heroTheme').onclick = ()=>setTheme(state.theme==='dark'?'light':'dark');
+
+function setLang(lang){
+  state.lang = lang;
+  localStorage.setItem('sb_lang', lang);
+  document.documentElement.lang = lang;
+  document.documentElement.dir = I18N[lang].dir;
+  applyI18n();
+}
+document.getElementById('langSelect').onchange = e=>setLang(e.target.value);
+document.getElementById('heroLangSelect').onchange = e=>setLang(e.target.value);
+
+/* ---------- i18n render ---------- */
+function applyI18n(){
+  const dict = I18N[state.lang];
+  document.getElementById('langSelect').value = state.lang;
+  document.getElementById('heroLangSelect').value = state.lang;
+  document.getElementById('t-hero-tagline').textContent = dict.heroTagline;
+  document.getElementById('t-hero-sub').textContent = dict.heroSub;
+  document.getElementById('t-cta-try').textContent = dict.ctaTry;
+  document.getElementById('t-cta-login').textContent = dict.ctaLogin;
+  document.getElementById('t-demo-note').textContent = dict.demoNote;
+  document.getElementById('messageInput').placeholder = dict.inputPlaceholder;
+  document.getElementById('t-online').textContent = dict.online;
+  document.getElementById('assistantName').textContent = dict.assistantName;
+  document.getElementById('t-hint').textContent = dict.hint;
+  document.getElementById('t-email-title').textContent = dict.emailModalTitle;
+  document.getElementById('t-email-sub').textContent = dict.emailModalSub;
+  document.getElementById('t-email-to').textContent = dict.to;
+  document.getElementById('t-email-subject').textContent = dict.subject;
+  document.getElementById('t-email-body').textContent = dict.body;
+  document.getElementById('emailCancel').textContent = dict.cancel;
+  document.getElementById('emailSubmit').textContent = dict.sendEmailAction;
+  document.getElementById('t-history-sub').textContent = dict.historyDaySub;
+  document.getElementById('historyClose').textContent = dict.close;
+  document.getElementById('t-tools-label').textContent = dict.toolsLabel;
+  document.getElementById('t-history-label').textContent = dict.historyLabel;
+  renderHeroToolGrid();
+  renderDrawerTools();
+  renderDomainSelect();
+  renderAccountBox();
+  renderToolHeader();
+}
+
+function renderHeroToolGrid(){
+  const dict = I18N[state.lang];
+  const grid = document.getElementById('heroToolGrid');
+  grid.innerHTML = '';
+  TOOLS.forEach(tool=>{
+    const card = document.createElement('div');
+    card.className = 'tool-card';
+    card.innerHTML = `<span class="ic">${tool.icon}</span><span class="lb">${dict.toolTitles[tool.key]}</span>`;
+    card.onclick = ()=>{ enterChat(tool.key); };
+    grid.appendChild(card);
+  });
+}
+
+function renderDrawerTools(){
+  const dict = I18N[state.lang];
+  const list = document.getElementById('drawerToolList');
+  list.innerHTML = '';
+  TOOLS.forEach(tool=>{
+    const c = COLOR_MAP[tool.color];
+    const btn = document.createElement('button');
+    btn.className = 'drawer-tool-btn' + (state.activeTool===tool.key ? ' active':'');
+    btn.innerHTML = `<span class="tool-icon-chip" style="background:${c.bg};color:${c.fg}">${tool.icon}</span><span>${dict.toolTitles[tool.key]}</span>`;
+    btn.onclick = ()=>{ closeDrawer(); selectTool(tool.key); };
+    list.appendChild(btn);
+  });
+}
+
+function renderDomainSelect(){
+  const dict = I18N[state.lang];
+  const sel = document.getElementById('domainSelect');
+  sel.innerHTML = '';
+  state.domains.forEach(d=>{
+    const opt = document.createElement('option');
+    opt.value = d;
+    opt.textContent = dict.domains[d] || d;
+    if(d===state.domain) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function renderToolHeader(){
+  const dict = I18N[state.lang];
+  const tool = TOOLS.find(x=>x.key===state.activeTool) || TOOLS[0];
+  const c = COLOR_MAP[tool.color];
+  const pill = document.getElementById('activeToolPill');
+  pill.textContent = dict.toolTitles[state.activeTool];
+  pill.style.background = c.bg;
+  pill.style.color = c.fg;
+  document.getElementById('assistantAvatar').firstChild.textContent = tool.icon;
+}
+
+function renderAccountBox(){
+  const dict = I18N[state.lang];
+  const nameEl = document.getElementById('accountName');
+  const subEl = document.getElementById('accountSub');
+  const actionEl = document.getElementById('accountAction');
+  const demoPill = document.getElementById('demoPill');
+  if(state.user){
+    nameEl.textContent = state.user.username;
+    subEl.textContent = state.user.email;
+    actionEl.textContent = dict.logout;
+    actionEl.onclick = logout;
+    demoPill.classList.add('hidden');
+    loadHistoryDates();
+  } else {
+    nameEl.textContent = dict.demoName;
+    actionEl.textContent = dict.login;
+    actionEl.onclick = ()=>{ closeDrawer(); openAuthModal(); };
+    demoPill.classList.remove('hidden');
+    refreshDemoStatus();
+    document.getElementById('historyList').innerHTML = `<div class="empty-hint">${dict.emptyHistory}</div>`;
+  }
+}
+
+/* ---------- Navigation between landing and chat ---------- */
+function enterChat(toolKey){
+  document.getElementById('landingScreen').classList.add('hidden');
+  document.getElementById('chatScreen').classList.remove('hidden');
+  selectTool(toolKey);
+}
+document.getElementById('backHomeBtn').onclick = ()=>{
+  document.getElementById('chatScreen').classList.add('hidden');
+  document.getElementById('landingScreen').classList.remove('hidden');
+};
+document.getElementById('ctaTryFree').onclick = ()=>enterChat('email');
+document.getElementById('ctaLogin').onclick = ()=>openAuthModal('register');
+
+function openDrawer(){ document.getElementById('drawerOverlay').classList.remove('hidden'); }
+function closeDrawer(){ document.getElementById('drawerOverlay').classList.add('hidden'); }
+document.getElementById('menuBtn').onclick = openDrawer;
+document.getElementById('drawerClose').onclick = closeDrawer;
+document.getElementById('drawerOverlay').addEventListener('click', e=>{ if(e.target.id==='drawerOverlay') closeDrawer(); });
+
+/* ---------- Tool selection & chat loading ---------- */
+async function selectTool(toolKey){
+  state.activeTool = toolKey;
+  state.chatId = null;
+  state.messages = [];
+  state.hasSentFirstMessage = false;
+  renderDrawerTools();
+  renderToolHeader();
+  clearMessages();
+
+  if(state.user){
+    try{
+      const data = await apiFetch(`/api/chat/tool/${toolKey}/today`);
+      if(data.chat_id){
+        state.chatId = data.chat_id;
+        state.messages = data.messages.map(m=>({role:m.role, content:m.content}));
+        state.hasSentFirstMessage = state.messages.length>0;
+        renderAllMessages();
+      } else {
+        showGreeting();
+      }
+    }catch(e){ showGreeting(); }
+  } else {
+    const key = 'sb_demo_task_' + toolKey;
+    state.demoTaskId = sessionStorage.getItem(key) || null;
+    showGreeting();
+  }
+}
+
+function clearMessages(){ document.getElementById('messages').innerHTML = ''; }
+
+function formatTime(){
+  const d = new Date();
+  return d.toLocaleTimeString(state.lang==='ar' ? 'ar' : state.lang, {hour:'2-digit', minute:'2-digit'});
+}
+
+function showGreeting(){
+  clearMessages();
+  const dict = I18N[state.lang];
+  const row = document.createElement('div');
+  row.className = 'msg-row assistant';
+  row.innerHTML = `<div class="bubble">${dict.welcomeMsg}</div><div class="msg-time">${formatTime()}</div>`;
+  document.getElementById('messages').appendChild(row);
+
+  const suggestWrap = document.createElement('div');
+  suggestWrap.className = 'suggest-row';
+  suggestWrap.id = 'suggestRow';
+  TOOLS.forEach(tool=>{
+    const c = COLOR_MAP[tool.color];
+    const pill = document.createElement('button');
+    pill.className = 'suggest-pill';
+    pill.style.background = c.bg;
+    pill.style.color = c.fg;
+    pill.innerHTML = `${tool.icon} ${dict.suggestions[tool.key]}`;
+    pill.onclick = ()=>{
+      selectTool(tool.key);
+      document.getElementById('messageInput').value = dict.suggestionPrompts[tool.key];
+      sendMessage();
+    };
+    suggestWrap.appendChild(pill);
+  });
+  document.getElementById('messages').appendChild(suggestWrap);
+}
+
+function renderAllMessages(){
+  clearMessages();
+  state.messages.forEach(m=>appendMessageBubble(m.role, m.content));
+  scrollToBottom();
+}
+
+function appendMessageBubble(role, content){
+  const row = document.createElement('div');
+  row.className = 'msg-row ' + role;
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = content;
+  row.appendChild(bubble);
+
+  const timeEl = document.createElement('div');
+  timeEl.className = 'msg-time';
+  timeEl.textContent = formatTime();
+  row.appendChild(timeEl);
+
+  if(role==='assistant' && state.activeTool==='email'){
+    const actions = document.createElement('div');
+    actions.className = 'msg-actions';
+    const dict = I18N[state.lang];
+    const sendBtn = document.createElement('button');
+    sendBtn.className = 'msg-action-btn';
+    sendBtn.textContent = dict.sendEmailAction;
+    sendBtn.onclick = ()=>openEmailModal(content);
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'msg-action-btn';
+    copyBtn.textContent = dict.copyAction;
+    copyBtn.onclick = ()=>navigator.clipboard.writeText(content);
+    actions.appendChild(sendBtn);
+    actions.appendChild(copyBtn);
+    row.appendChild(actions);
+  }
+  document.getElementById('messages').appendChild(row);
+}
+
+function scrollToBottom(){
+  const area = document.getElementById('messages');
+  area.scrollTop = area.scrollHeight;
+}
+
+/* ---------- Sending messages ---------- */
+async function sendMessage(){
+  const input = document.getElementById('messageInput');
+  const message = input.value.trim();
+  if(!message) return;
+  input.value = '';
+  input.style.height = 'auto';
+
+  if(!state.hasSentFirstMessage){
+    const sr = document.getElementById('suggestRow');
+    if(sr) sr.remove();
+    state.hasSentFirstMessage = true;
+  }
+
+  state.messages.push({role:'user', content:message});
+  appendMessageBubble('user', message);
+  scrollToBottom();
+
+  const typing = document.createElement('div');
+  typing.className = 'typing-bubble';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  document.getElementById('messages').appendChild(typing);
+  scrollToBottom();
+  document.getElementById('sendBtn').disabled = true;
+
+  try{
+    let data;
+    if(state.user){
+      data = await apiFetch('/api/chat', {
+        method:'POST',
+        body: JSON.stringify({message, tool_type: state.activeTool, chat_id: state.chatId, domain: state.domain})
+      });
+      state.chatId = data.chat_id;
+      loadHistoryDates();
+    } else {
+      data = await apiFetch('/api/demo/chat', {
+        method:'POST',
+        body: JSON.stringify({message, tool_type: state.activeTool, domain: state.domain, task_id: state.demoTaskId})
+      });
+      state.demoTaskId = data.task_id;
+      sessionStorage.setItem('sb_demo_task_' + state.activeTool, data.task_id);
+      updateDemoRemaining(data.remaining_requests);
+    }
+    typing.remove();
+    state.messages.push({role:'assistant', content:data.message});
+    appendMessageBubble('assistant', data.message);
+    scrollToBottom();
+  }catch(err){
+    typing.remove();
+    if(err.status===429){
+      showDemoLimitReached();
+    } else {
+      const row = document.createElement('div');
+      row.className = 'msg-row assistant';
+      row.innerHTML = `<div class="bubble" style="color:#C24A2A">${(err.data && err.data.error) || 'Error'}</div>`;
+      document.getElementById('messages').appendChild(row);
+    }
+  }
+  document.getElementById('sendBtn').disabled = false;
+}
+
+function showDemoLimitReached(){
+  const dict = I18N[state.lang];
+  const row = document.createElement('div');
+  row.className = 'msg-row assistant';
+  row.innerHTML = `<div class="bubble" style="color:#C24A2A">${dict.demoLimitTitle}</div>`;
+  document.getElementById('messages').appendChild(row);
+  openAuthModal('register');
+}
+
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+document.getElementById('messageInput').addEventListener('keydown', e=>{
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+});
+document.getElementById('messageInput').addEventListener('input', function(){
+  this.style.height='auto';
+  this.style.height=Math.min(this.scrollHeight,150)+'px';
+});
+
+/* ---------- Demo status ---------- */
+async function refreshDemoStatus(){
+  try{
+    const data = await apiFetch('/api/demo/status');
+    updateDemoRemaining(data.remaining);
+  }catch(e){}
+}
+function updateDemoRemaining(remaining){
+  document.getElementById('demoRemainingText').textContent = remaining;
+}
+
+/* ---------- Auth ---------- */
+function openAuthModal(mode='login'){
+  state.authMode = mode;
+  renderAuthModal();
+  document.getElementById('authOverlay').classList.remove('hidden');
+}
+function renderAuthModal(){
+  const dict = I18N[state.lang];
+  const isReg = state.authMode==='register';
+  document.getElementById('authTitle').textContent = isReg ? dict.regTitle : dict.loginTitle;
+  document.getElementById('authSub').textContent = isReg ? dict.regSub : dict.loginSub;
+  document.getElementById('regUsernameField').classList.toggle('hidden', !isReg);
+  document.getElementById('regEmailField').classList.toggle('hidden', !isReg);
+  document.querySelector('#regUsernameField label').textContent = dict.username;
+  document.querySelector('#regEmailField label').textContent = dict.email;
+  document.getElementById('loginUserLabel').textContent = dict.username;
+  document.getElementById('authSubmit').textContent = isReg ? dict.regTitle : dict.loginTitle;
+  document.getElementById('authCancel').textContent = dict.cancel;
+  document.getElementById('authAlert').innerHTML = '';
+  document.getElementById('authSwitchLine').innerHTML = isReg
+    ? `${dict.switchToLogin} <a id="authSwitchLink">${dict.switchToLoginLink}</a>`
+    : `${dict.switchToReg} <a id="authSwitchLink">${dict.switchToRegLink}</a>`;
+  document.getElementById('authSwitchLink').onclick = ()=>{ state.authMode = isReg?'login':'register'; renderAuthModal(); };
+}
+document.getElementById('authCancel').onclick = ()=>document.getElementById('authOverlay').classList.add('hidden');
+
+document.getElementById('authSubmit').onclick = async ()=>{
+  const alertBox = document.getElementById('authAlert');
+  alertBox.innerHTML = '';
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  try{
+    if(state.authMode==='register'){
+      const regUsername = document.getElementById('regUsername').value.trim() || username;
+      const email = document.getElementById('regEmail').value.trim();
+      await apiFetch('/api/auth/register', {method:'POST', body: JSON.stringify({username: regUsername, email, password})});
+      const data = await apiFetch('/api/auth/login', {method:'POST', body: JSON.stringify({username: regUsername, password})});
+      finishLogin(data);
+    } else {
+      const data = await apiFetch('/api/auth/login', {method:'POST', body: JSON.stringify({username, password})});
+      finishLogin(data);
+    }
+  }catch(err){
+    alertBox.innerHTML = `<div class="alert-box">${(err.data && err.data.error) || 'Error'}</div>`;
+  }
+};
+
+function finishLogin(data){
+  state.token = data.access_token;
+  state.user = data.user;
+  localStorage.setItem('sb_token', state.token);
+  localStorage.setItem('sb_user', JSON.stringify(state.user));
+  document.getElementById('authOverlay').classList.add('hidden');
+  renderAccountBox();
+  if(document.getElementById('chatScreen').classList.contains('hidden')){
+    enterChat(state.activeTool);
+  } else {
+    selectTool(state.activeTool);
+  }
+}
+
+function logout(){
+  state.token = null;
+  state.user = null;
+  localStorage.removeItem('sb_token');
+  localStorage.removeItem('sb_user');
+  renderAccountBox();
+  selectTool(state.activeTool);
+}
+
+/* ---------- Email send (mailto, no server/SMTP involved) ---------- */
+function openEmailModal(bodyText){
+  document.getElementById('emailAlert').innerHTML = '';
+  document.getElementById('emailTo').value = '';
+  const lines = bodyText.split('\n');
+  let subject = '', body = bodyText;
+  if(lines[0] && lines[0].toLowerCase().includes('subject')){
+    subject = lines[0].replace(/subject\s*:?\s*/i,'').trim();
+    body = lines.slice(1).join('\n').trim();
+  }
+  document.getElementById('emailSubject').value = subject;
+  document.getElementById('emailBody').value = body;
+  document.getElementById('emailOverlay').classList.remove('hidden');
+}
+document.getElementById('emailCancel').onclick = ()=>document.getElementById('emailOverlay').classList.add('hidden');
+document.getElementById('emailSubmit').onclick = ()=>{
+  const dict = I18N[state.lang];
+  const alertBox = document.getElementById('emailAlert');
+  const to = document.getElementById('emailTo').value.trim();
+  const subject = document.getElementById('emailSubject').value.trim();
+  const body = document.getElementById('emailBody').value;
+  if(!to){
+    alertBox.innerHTML = `<div class="alert-box">${dict.to}</div>`;
+    return;
+  }
+  const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+  alertBox.innerHTML = `<div class="alert-box ok">${dict.sent}</div>`;
+};
+
+/* ---------- History by date ---------- */
+async function loadHistoryDates(){
+  if(!state.user) return;
+  try{
+    const data = await apiFetch('/api/history/dates');
+    const list = document.getElementById('historyList');
+    const dict = I18N[state.lang];
+    list.innerHTML = '';
+    if(!data.dates.length){
+      list.innerHTML = `<div class="empty-hint">${dict.emptyHistory}</div>`;
+      return;
+    }
+    data.dates.forEach(d=>{
+      const item = document.createElement('div');
+      item.className = 'history-item';
+      item.innerHTML = `<span>${d.day}</span><span class="history-count">${d.chat_count}</span>`;
+      item.onclick = ()=>openHistoryDay(d.day);
+      list.appendChild(item);
+    });
+  }catch(e){}
+}
+
+async function openHistoryDay(day){
+  const dict = I18N[state.lang];
+  document.getElementById('historyDayTitle').textContent = day;
+  const content = document.getElementById('historyDayContent');
+  content.innerHTML = '';
+  try{
+    const data = await apiFetch(`/api/history/day/${day}`);
+    if(!data.chats.length){
+      content.innerHTML = `<div class="empty-hint">${dict.emptyHistory}</div>`;
+    } else {
+      data.chats.forEach(c=>{
+        const block = document.createElement('div');
+        block.className = 'history-day-block';
+        const title = dict.toolTitles[c.chat.tool_type] || c.chat.tool_type;
+        const msgsHtml = c.messages.map(m=>`<div class="history-msg"><b>${m.role==='user' ? dict.username : 'AI'}:</b> ${escapeHtml(m.content).slice(0,240)}</div>`).join('');
+        block.innerHTML = `<h3>${title} — ${c.chat.title||''}</h3>${msgsHtml}`;
+        content.appendChild(block);
+      });
+    }
+    document.getElementById('historyOverlay').classList.remove('hidden');
+  }catch(e){}
+}
+document.getElementById('historyClose').onclick = ()=>document.getElementById('historyOverlay').classList.add('hidden');
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+document.getElementById('domainSelect').onchange = e=>{
+  state.domain = e.target.value;
+  localStorage.setItem('sb_domain', state.domain);
+};
+
+/* ---------- Init ---------- */
+async function loadDomains(){
+  try{
+    const data = await apiFetch('/api/domains');
+    if(data.domains && data.domains.length) state.domains = data.domains;
+  }catch(e){}
+}
+
+(async function init(){
+  document.documentElement.lang = state.lang;
+  document.documentElement.dir = I18N[state.lang].dir;
+  applyTheme();
+  await loadDomains();
+  applyI18n();
+  state.activeTool = 'email';
+})();
+</script>
+</body>
+</html>

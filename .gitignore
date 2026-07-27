@@ -1,0 +1,20 @@
+# Environment & secrets
+.env
+
+# Database
+*.db
+smartbiz.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
